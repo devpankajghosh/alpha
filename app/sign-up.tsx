@@ -21,7 +21,10 @@ const SignUp = () => {
 
     try {
       const res = await register(data);
-      console.log(res);
+
+      if (res) {
+        router.push("/sign-in");
+      }
     } catch (error) {
       console.log(error);
     } finally {
