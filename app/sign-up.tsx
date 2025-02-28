@@ -5,26 +5,28 @@ import { useForm } from "react-hook-form";
 import { router } from "expo-router";
 
 import Input from "@/components/Input";
-import { role } from "@/constants/role";
 import { Loader } from "@/constants/icons";
-
-interface SignUpFormData {
-  email_or_phone: string | undefined;
-  password: string | undefined;
-  role: string;
-}
+import { register } from "@/services/auth.service";
+import { SignUpFormData } from "@/interfaces";
+import { config } from "@/config/config";
 
 const SignUp = () => {
   const { control, handleSubmit } = useForm<SignUpFormData>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // Sign up handler
-  const handleSignUp = (data: {
-    email_or_phone: string | undefined;
-    password: string | undefined;
-    role: string;
-  }) => {
-    console.log({ ...data, role: role.PATIENT });
+  const handleSignUp = async (data: SignUpFormData) => {
+    setLoading(true);
+    console.log(config.backendUrl);
+
+    try {
+      const res = await register(data);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,7 +39,7 @@ const SignUp = () => {
 
           <Input
             label="Email or Phone"
-            name="email_or_phone"
+            name="identifier"
             placeholder="Enter your email or phone"
             containerClassName="mb-6"
             editable={!loading}
@@ -97,7 +99,7 @@ const SignUp = () => {
               </View>
             ) : (
               <Text className="text-center text-white font-bold text-xl">
-                Sign in
+                Create
               </Text>
             )}
           </Pressable>

@@ -1,14 +1,12 @@
-import { config } from "@/config/config";
 import axios from "axios";
 
+// Create an Axios instance
 const api = axios.create({
-  baseURL: config.backendUrl,
+  baseURL: "http://localhost:8090",
+  timeout: 10000, // 10 seconds timeout
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
-  timeout: 10000,
-  timeoutErrorMessage: "Request timed out. Please try again later.",
 });
 
 export default api;
