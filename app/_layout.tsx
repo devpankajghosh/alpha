@@ -1,20 +1,33 @@
-import React from "react";
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { SplashScreen, Stack } from "expo-router";
+import { useFonts } from "expo-font";
+
+import "./global.css";
+import { useEffect } from "react";
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    "Inter-Light": require("../assets/fonts/Inter-Light.ttf"),
+    "Inter-Regular": require("../assets/fonts/Inter-Regular.ttf"),
+    "Inter-Medium": require("../assets/fonts/Inter-Medium.ttf"),
+    "Inter-SemiBold": require("../assets/fonts/Inter-SemiBold.ttf"),
+    "Inter-Bold": require("../assets/fonts/Inter-Bold.ttf"),
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <>
-      <StatusBar style="dark" />
-      <Stack>
-        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="sign-in" options={{ headerShown: false }} />
-        <Stack.Screen name="sign-up" options={{ headerShown: false }} />
-        <Stack.Screen name="forgot-password" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="all-doctors" options={{ headerShown: false }} />
-      </Stack>
-    </>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    />
   );
 }

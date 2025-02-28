@@ -1,172 +1,106 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-import { Link } from "expo-router";
-import { FontAwesome } from "@expo/vector-icons";
+import { ScrollView, Text, Pressable, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useForm } from "react-hook-form";
+import { router } from "expo-router";
 
-export default function SignUp() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Create New Account</Text>
+import Input from "@/components/Input";
 
-      <View style={styles.form}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Full Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Your Full Name"
-            autoCapitalize="words"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Password</Text>
-          <View style={styles.passwordContainer}>
-            <TextInput
-              style={[styles.input, styles.passwordInput]}
-              placeholder="Enter Your Password"
-              secureTextEntry
-            />
-            <TouchableOpacity style={styles.eyeIcon}>
-              <FontAwesome name="eye" size={20} color="#008DB9" />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Your Email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Mobile Number</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Your Phone Number"
-            keyboardType="phone-pad"
-          />
-        </View>
-
-        <TouchableOpacity style={styles.signUpButton}>
-          <Text style={styles.signUpText}>Sign Up</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.orText}>OR</Text>
-
-        <View style={styles.socialButtons}>
-          <TouchableOpacity style={styles.socialButton}>
-            <FontAwesome name="facebook" size={24} color="#1877F2" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton}>
-            <FontAwesome name="google" size={24} color="#DB4437" />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.signInContainer}>
-          <Text style={styles.accountText}>Don't have an account? </Text>
-          <Link href="/sign-in" style={styles.signInLink}>
-            Sign In
-          </Link>
-        </View>
-      </View>
-    </View>
-  );
+interface SignUpFormData {
+  email_or_phone: string | undefined;
+  password: string | undefined;
+  role: string;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#fff",
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#008DB9",
-    marginBottom: 30,
-  },
-  form: {
-    gap: 20,
-  },
-  inputContainer: {
-    gap: 8,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  input: {
-    backgroundColor: "#F5F5F5",
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 16,
-  },
-  passwordContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#F5F5F5",
-    borderRadius: 8,
-  },
-  passwordInput: {
-    flex: 1,
-    backgroundColor: "transparent",
-  },
-  eyeIcon: {
-    padding: 15,
-  },
-  signUpButton: {
-    backgroundColor: "#008DB9",
-    padding: 15,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 10,
-  },
-  signUpText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  orText: {
-    textAlign: "center",
-    color: "#666",
-    fontSize: 16,
-    marginVertical: 20,
-  },
-  socialButtons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 20,
-  },
-  socialButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: "#F5F5F5",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  signInContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 20,
-  },
-  accountText: {
-    color: "#666",
-    fontSize: 14,
-  },
-  signInLink: {
-    color: "#008DB9",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-});
+const SignUp = () => {
+  const { control, handleSubmit } = useForm<SignUpFormData>();
+
+  const handleSignUp = (data: {
+    email_or_phone: string | undefined;
+    password: string | undefined;
+    role: string;
+  }) => {
+    console.log({ ...data, role: "patient" });
+  };
+
+  return (
+    <SafeAreaView className="flex-1 bg-white">
+      <ScrollView className="flex-1">
+        <View className="px-6 py-7">
+          <Text className="text-center text-3xl font-bold text-primary-300 mb-10">
+            Create an account
+          </Text>
+
+          <Input
+            label="Email or Phone"
+            name="email_or_phone"
+            placeholder="Enter your email or phone"
+            containerClassName="mb-6"
+            control={control}
+            rules={{
+              required: "Email or phone is required",
+              pattern: {
+                value:
+                  /^(?:[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\d{10})$/,
+                message: "Enter a valid email address or phone",
+              },
+            }}
+          />
+
+          <Input
+            label="Password"
+            name="password"
+            secureTextEntry
+            placeholder="Enter your password"
+            containerClassName="mb-10"
+            control={control}
+            rules={{
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters",
+              },
+              maxLength: {
+                value: 20,
+                message: "Password must be at most 20 characters",
+              },
+              pattern: {
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,20}$/,
+                message:
+                  "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+              },
+            }}
+          />
+
+          <Pressable onPress={() => router.push("/forgot-password")}>
+            <Text className="mb-6 text-lg font-semibold self-end">
+              Forgot Password?
+            </Text>
+          </Pressable>
+
+          <Pressable
+            className="bg-primary-300 p-4 rounded-lg mb-5"
+            onPress={handleSubmit(handleSignUp)}
+          >
+            <Text className="text-center text-white font-bold text-xl">
+              Sign in
+            </Text>
+          </Pressable>
+
+          <View className="flex-row justify-center items-center gap-2">
+            <Text className="text-gray-500 text-lg">
+              Already have an account?
+            </Text>
+
+            <Pressable hitSlop={10} onPress={() => router.push("/sign-in")}>
+              <Text className="text-primary-300 font-semibold text-lg">
+                Sign in
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default SignUp;

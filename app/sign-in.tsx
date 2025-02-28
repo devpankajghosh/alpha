@@ -1,178 +1,107 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-import { Link, router } from "expo-router";
-import { FontAwesome } from "@expo/vector-icons";
+import { ScrollView, Text, Pressable, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useForm } from "react-hook-form";
+import { router } from "expo-router";
 
-export default function SignIn() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Welcome</Text>
+import Input from "@/components/Input";
 
-      <Text style={styles.title}>Sign In</Text>
-      <Text style={styles.subtitle}>
-        Korem ipsum dolor sit amet, consectetur adipiscing elit.
-      </Text>
-
-      <View style={styles.form}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Your Email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Password</Text>
-          <View style={styles.passwordContainer}>
-            <TextInput
-              style={[styles.input, styles.passwordInput]}
-              placeholder="Enter Your Password"
-              secureTextEntry
-            />
-            <TouchableOpacity style={styles.eyeIcon}>
-              <FontAwesome name="eye" size={20} color="#008DB9" />
-            </TouchableOpacity>
-          </View>
-          <Link href="/forgot-password" style={styles.forgotPassword}>
-            Forget Password
-          </Link>
-        </View>
-
-        <TouchableOpacity
-          style={styles.signInButton}
-          onPress={() => router.push("/home")}
-        >
-          <Text style={styles.signInText}>Sign In</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.orText}>OR</Text>
-
-        <View style={styles.socialButtons}>
-          <TouchableOpacity style={styles.socialButton}>
-            <FontAwesome name="facebook" size={24} color="#1877F2" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton}>
-            <FontAwesome name="google" size={24} color="#DB4437" />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.signUpContainer}>
-          <Text style={styles.noAccountText}>Don't have an account? </Text>
-          <Link href="/sign-up" style={styles.signUpLink}>
-            Sign Up
-          </Link>
-        </View>
-      </View>
-    </View>
-  );
+interface SignInFormData {
+  email_or_phone: string | undefined;
+  password: string | undefined;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#fff",
-  },
-  welcome: {
-    fontSize: 24,
-    color: "#008DB9",
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 30,
-  },
-  form: {
-    gap: 20,
-  },
-  inputContainer: {
-    gap: 8,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  input: {
-    backgroundColor: "#F5F5F5",
-    padding: 15,
-    borderRadius: 8,
-    fontSize: 16,
-  },
-  passwordContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#F5F5F5",
-    borderRadius: 8,
-  },
-  passwordInput: {
-    flex: 1,
-    backgroundColor: "transparent",
-  },
-  eyeIcon: {
-    padding: 15,
-  },
-  forgotPassword: {
-    alignSelf: "flex-end",
-    color: "#008DB9",
-    fontSize: 14,
-  },
-  signInButton: {
-    backgroundColor: "#008DB9",
-    padding: 15,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 10,
-  },
-  signInText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  orText: {
-    textAlign: "center",
-    color: "#666",
-    fontSize: 16,
-    marginVertical: 20,
-  },
-  socialButtons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 20,
-  },
-  socialButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: "#F5F5F5",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  signUpContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 20,
-  },
-  noAccountText: {
-    color: "#666",
-    fontSize: 14,
-  },
-  signUpLink: {
-    color: "#008DB9",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-});
+const SignIn = () => {
+  const { control, handleSubmit } = useForm<SignInFormData>();
+
+  const handleSignIn = (data: SignInFormData) => {
+    console.log(data);
+  };
+
+  return (
+    <SafeAreaView className="flex-1 bg-white">
+      <ScrollView className="flex-1">
+        <View className="px-6 py-7">
+          <Text className="text-center text-3xl font-bold text-primary-300 mb-10">
+            Welcome
+          </Text>
+
+          <Text className="text-3xl font-bold mb-3">Sign in</Text>
+
+          <Text className="text-lg text-gray-500 mb-6">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </Text>
+
+          <Input
+            label="Email or Phone"
+            name="email_or_phone"
+            placeholder="Enter your email or phone"
+            containerClassName="mb-6"
+            control={control}
+            rules={{
+              required: "Email or phone is required",
+              pattern: {
+                value:
+                  /^(?:[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\d{10})$/,
+                message: "Enter a valid email address or phone",
+              },
+            }}
+          />
+
+          <Input
+            label="Password"
+            name="password"
+            secureTextEntry
+            placeholder="Enter your password"
+            containerClassName="mb-10"
+            control={control}
+            rules={{
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters",
+              },
+              maxLength: {
+                value: 20,
+                message: "Password must be at most 20 characters",
+              },
+              pattern: {
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,20}$/,
+                message:
+                  "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+              },
+            }}
+          />
+
+          <Pressable onPress={() => router.push("/forgot-password")}>
+            <Text className="mb-6 text-lg font-semibold self-end">
+              Forgot Password?
+            </Text>
+          </Pressable>
+
+          <Pressable
+            className="bg-primary-300 p-4 rounded-lg mb-5"
+            onPress={handleSubmit(handleSignIn)}
+          >
+            <Text className="text-center text-white font-bold text-xl">
+              Sign in
+            </Text>
+          </Pressable>
+
+          <View className="flex-row justify-center items-center gap-2">
+            <Text className="text-gray-500 text-lg">
+              Don't have an account?
+            </Text>
+
+            <Pressable onPress={() => router.push("/sign-up")}>
+              <Text className="text-primary-300 font-semibold text-lg">
+                Sign up
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default SignIn;
