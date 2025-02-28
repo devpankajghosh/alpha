@@ -103,7 +103,7 @@ const SignIn = () => {
             }`}
             onPress={handleSubmit(handleSignIn)}
             disabled={loading}
-            android_ripple={{ color: "rgba(255, 255, 255, 0.2)" }}
+            android_ripple={{ color: "#0000005A" }}
             style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
           >
             {loading ? (
