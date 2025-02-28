@@ -17,14 +17,16 @@ const SignUp = () => {
   // Sign up handler
   const handleSignUp = async (data: SignUpFormData) => {
     setLoading(true);
-    console.log(config.backendUrl);
 
     try {
       const res = await register(data);
 
       if (res) {
-        router.push("/sign-in");
+        router.replace("/sign-in");
+        return;
       }
+
+      console.log(res);
     } catch (error) {
       console.log(error);
     } finally {
