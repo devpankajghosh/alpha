@@ -96,6 +96,8 @@ const SignUp = () => {
             }`}
             onPress={handleSubmit(handleSignUp)}
             disabled={loading}
+            android_ripple={{ color: "rgba(255, 255, 255, 0.2)" }}
+            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
           >
             {loading ? (
               <View className="animate-spin">
