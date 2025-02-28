@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm } from "react-hook-form";
 import { router } from "expo-router";
 
-import Input from "@/components/Input";
+import { Input } from "@/components";
 import { SignInFormData } from "@/interfaces";
 import { login } from "@/services/auth.service";
 import { Loader } from "@/constants/icons";

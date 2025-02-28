@@ -1,26 +1,36 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { Text, View } from "react-native";
+
+import { TabBar } from "@/components";
 
 const TabsLayout = () => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: "#ffffff",
-          borderTopColor: "#0B8FAC1A",
-          borderTopWidth: 1,
-          height: 65,
-        },
-      }}
-    >
+    <Tabs tabBar={(props) => <TabBar {...props} />}>
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
           headerShown: false,
-          tabBarIcon: ({ focused }) => <Text>Home</Text>,
+        }}
+      />
+
+      <Tabs.Screen
+        name="appointment"
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Tabs.Screen
+        name="messages"
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Tabs.Screen
+        name="profile"
+        options={{
+          headerShown: false,
         }}
       />
     </Tabs>

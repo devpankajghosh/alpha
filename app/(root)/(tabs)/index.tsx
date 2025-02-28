@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
-export default function Index() {
+const Home = () => {
   return (
     <View
       style={{
@@ -18,4 +18,6 @@ export default function Index() {
       <Link href="/partners/1">Partner</Link>
     </View>
   );
-}
+};
+
+export default Home;
