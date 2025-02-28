@@ -8,7 +8,6 @@ import Input from "@/components/Input";
 import { Loader } from "@/constants/icons";
 import { register } from "@/services/auth.service";
 import { SignUpFormData } from "@/interfaces";
-import { config } from "@/config/config";
 
 const SignUp = () => {
   const { control, handleSubmit } = useForm<SignUpFormData>();

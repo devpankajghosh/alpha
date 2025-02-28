@@ -1,22 +1,37 @@
 import { useState } from "react";
-import { ScrollView, Text, Pressable, View } from "react-native";
+import { ScrollView, Text, Pressable, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm } from "react-hook-form";
 import { router } from "expo-router";
 
 import Input from "@/components/Input";
-
-interface SignInFormData {
-  email_or_phone: string | undefined;
-  password: string | undefined;
-}
+import { SignInFormData } from "@/interfaces";
+import { login } from "@/services/auth.service";
+import { Loader } from "@/constants/icons";
 
 const SignIn = () => {
   const { control, handleSubmit } = useForm<SignInFormData>();
   const [loading, setLoading] = useState(false);
 
-  const handleSignIn = (data: SignInFormData) => {
-    console.log(data);
+  // Sign in handler
+  const handleSignIn = async (data: SignInFormData) => {
+    setLoading(true);
+
+    try {
+      const res = await login(data);
+
+      if (res) {
+        console.log(res);
+        //router.replace("/(root)/(tabs)"); // Homepage
+        return;
+      }
+
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -83,13 +98,21 @@ const SignIn = () => {
           </Pressable>
 
           <Pressable
-            className="bg-primary-300 p-4 rounded-lg mb-5"
+            className={`p-4 rounded-lg mb-5 items-center ${
+              !loading ? "bg-primary-300" : "bg-secondary-300"
+            }`}
             onPress={handleSubmit(handleSignIn)}
             disabled={loading}
           >
-            <Text className="text-center text-white font-bold text-xl">
-              Sign in
-            </Text>
+            {loading ? (
+              <View className="animate-spin">
+                <Image source={Loader} className="w-7 h-7" />
+              </View>
+            ) : (
+              <Text className="text-center text-white font-bold text-xl">
+                Sign In
+              </Text>
+            )}
           </Pressable>
 
           <View className="flex-row justify-center items-center gap-2">

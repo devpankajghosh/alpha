@@ -1,5 +1,5 @@
 import api from "./api";
-import { SignUpFormData } from "@/interfaces";
+import { SignInFormData, SignUpFormData } from "@/interfaces";
 import { role } from "@/constants/role";
 
 // Register
@@ -28,7 +28,7 @@ export async function register(data: SignUpFormData) {
 }
 
 // Login
-export async function login(data) {
+export async function login(data: SignInFormData) {
   const response = await api.post("/auth/login", data);
   return response.data;
 }
