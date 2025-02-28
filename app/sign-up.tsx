@@ -1,9 +1,12 @@
-import { ScrollView, Text, Pressable, View } from "react-native";
+import { useState } from "react";
+import { ScrollView, Text, Pressable, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm } from "react-hook-form";
 import { router } from "expo-router";
 
 import Input from "@/components/Input";
+import { role } from "@/constants/role";
+import { Loader } from "@/constants/icons";
 
 interface SignUpFormData {
   email_or_phone: string | undefined;
@@ -13,13 +16,15 @@ interface SignUpFormData {
 
 const SignUp = () => {
   const { control, handleSubmit } = useForm<SignUpFormData>();
+  const [loading, setLoading] = useState(true);
 
+  // Sign up handler
   const handleSignUp = (data: {
     email_or_phone: string | undefined;
     password: string | undefined;
     role: string;
   }) => {
-    console.log({ ...data, role: "patient" });
+    console.log({ ...data, role: role.PATIENT });
   };
 
   return (
@@ -35,6 +40,7 @@ const SignUp = () => {
             name="email_or_phone"
             placeholder="Enter your email or phone"
             containerClassName="mb-6"
+            editable={!loading}
             control={control}
             rules={{
               required: "Email or phone is required",
@@ -52,6 +58,7 @@ const SignUp = () => {
             secureTextEntry
             placeholder="Enter your password"
             containerClassName="mb-10"
+            editable={!loading}
             control={control}
             rules={{
               required: "Password is required",
@@ -78,12 +85,21 @@ const SignUp = () => {
           </Pressable>
 
           <Pressable
-            className="bg-primary-300 p-4 rounded-lg mb-5"
+            className={`p-4 rounded-lg mb-5 items-center ${
+              !loading ? "bg-primary-300" : "bg-secondary-300"
+            }`}
             onPress={handleSubmit(handleSignUp)}
+            disabled={loading}
           >
-            <Text className="text-center text-white font-bold text-xl">
-              Sign in
-            </Text>
+            {loading ? (
+              <View className="animate-spin">
+                <Image source={Loader} className="w-7 h-7" />
+              </View>
+            ) : (
+              <Text className="text-center text-white font-bold text-xl">
+                Sign in
+              </Text>
+            )}
           </Pressable>
 
           <View className="flex-row justify-center items-center gap-2">

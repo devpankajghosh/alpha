@@ -17,6 +17,11 @@ module.exports = {
           200: "#0B8FAC1A",
           300: "#0B8FAC",
         },
+        secondary: {
+          100: "#7BC1B70A",
+          200: "#7BC1B71A",
+          300: "#7BC1B7",
+        },
         accent: {
           100: "#FBFBFD",
         },

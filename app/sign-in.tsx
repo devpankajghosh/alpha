@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ScrollView, Text, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm } from "react-hook-form";
@@ -12,6 +13,7 @@ interface SignInFormData {
 
 const SignIn = () => {
   const { control, handleSubmit } = useForm<SignInFormData>();
+  const [loading, setLoading] = useState(false);
 
   const handleSignIn = (data: SignInFormData) => {
     console.log(data);
@@ -36,6 +38,7 @@ const SignIn = () => {
             name="email_or_phone"
             placeholder="Enter your email or phone"
             containerClassName="mb-6"
+            editable={!loading}
             control={control}
             rules={{
               required: "Email or phone is required",
@@ -53,6 +56,7 @@ const SignIn = () => {
             secureTextEntry
             placeholder="Enter your password"
             containerClassName="mb-10"
+            editable={!loading}
             control={control}
             rules={{
               required: "Password is required",
@@ -81,6 +85,7 @@ const SignIn = () => {
           <Pressable
             className="bg-primary-300 p-4 rounded-lg mb-5"
             onPress={handleSubmit(handleSignIn)}
+            disabled={loading}
           >
             <Text className="text-center text-white font-bold text-xl">
               Sign in
