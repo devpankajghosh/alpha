@@ -13,6 +13,7 @@ import Bell from "@/assets/icons/bell.png";
 import Search from "@/assets/icons/search.png";
 import Heart from "@/assets/icons/heart.png";
 import Star from "@/assets/icons/star.png";
+import Back from "@/assets/icons/back.png";
 
 export {
   EyeOff,
@@ -30,4 +31,5 @@ export {
   Search,
   Heart,
   Star,
+  Back,
 };

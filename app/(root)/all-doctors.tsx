@@ -1,7 +1,8 @@
-import { Pressable, ScrollView, View, Text } from "react-native";
+import { Pressable, ScrollView, View, Text, Image } from "react-native";
+import { router } from "expo-router";
 
 import Card from "@/components/Card";
-import { router } from "expo-router";
+import { Back } from "@/constants/icons";
 
 const AllDoctors = () => {
   const DATA = [
@@ -81,7 +82,7 @@ const AllDoctors = () => {
     <View className="flex-1">
       <View className="p-3 px-5 flex-row items-center bg-white">
         <Pressable onPress={() => router.back()}>
-          <Text>Back</Text>
+          <Image source={Back} className="w-6 h-6" />
         </Pressable>
 
         <Text className="text-center flex-1 text-primary-300 font-inter-semibold text-2xl">
