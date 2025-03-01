@@ -1,9 +1,21 @@
+import { Link } from "expo-router";
 import { View, Text } from "react-native";
 
 export default function Profile() {
   return (
-    <View className="flex-1 items-center justify-center">
-      <Text className="text-xl font-inter-medium">Profile Screen</Text>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text className="text-3xl font-inter-semibold">Welcome to the Alpha</Text>
+      <Link href="/sign-in">Sign In</Link>
+      <Link href="/appointment">Appointment</Link>
+      <Link href="/messages">Messages</Link>
+      <Link href="/profile">Profile</Link>
+      <Link href="/partners/1">Partner</Link>
     </View>
   );
 }

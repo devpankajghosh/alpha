@@ -22,7 +22,7 @@ const icons: Record<string, { active: any; inactive: any }> = {
 
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   return (
-    <View className="absolute w-full bottom-0 flex-row justify-center items-center bg-white p-3 gap-10">
+    <View className="absolute w-full bottom-0 flex-row justify-center items-center bg-primary-100 p-3 gap-10">
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         const { options } = descriptors[route.key];

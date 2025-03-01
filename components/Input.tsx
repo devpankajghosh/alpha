@@ -21,6 +21,7 @@ interface InputProps extends TextInputProps {
   className?: string;
   control: Control<any>;
   rules?: object;
+  icon?: React.ReactNode;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -32,6 +33,7 @@ const Input: React.FC<InputProps> = ({
   className = "",
   control,
   rules = {},
+  icon,
   ...props
 }) => {
   const {
@@ -50,7 +52,9 @@ const Input: React.FC<InputProps> = ({
     <View className={`relative ${containerClassName}`}>
       {label && <Text className="mb-2 text-lg font-medium">{label}</Text>}
 
-      <View className="flex-row w-full border-2 border-gray-200 rounded-lg h-14 px-4 items-center">
+      <View className="flex-row w-full border border-gray-200 rounded-lg h-14 px-4 items-center">
+        {icon}
+
         <TextInput
           value={field.value}
           onChangeText={field.onChange}

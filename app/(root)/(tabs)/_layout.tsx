@@ -3,38 +3,18 @@ import { Tabs } from "expo-router";
 
 import { TabBar } from "@/components";
 
-const TabsLayout = () => {
-  return (
-    <Tabs tabBar={(props) => <TabBar {...props} />}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          headerShown: false,
-        }}
-      />
+const tabScreens = ["index", "appointment", "messages", "profile"];
 
+const TabsLayout = () => (
+  <Tabs tabBar={(props) => <TabBar {...props} />}>
+    {tabScreens.map((screen) => (
       <Tabs.Screen
-        name="appointment"
-        options={{
-          headerShown: false,
-        }}
+        key={screen}
+        name={screen}
+        options={{ headerShown: false }}
       />
-
-      <Tabs.Screen
-        name="messages"
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Tabs.Screen
-        name="profile"
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Tabs>
-  );
-};
+    ))}
+  </Tabs>
+);
 
 export default TabsLayout;

@@ -9,6 +9,10 @@ import Message from "@/assets/icons/message.png";
 import MessageDark from "@/assets/icons/message-dark.png";
 import Profile from "@/assets/icons/profile.png";
 import ProfileDark from "@/assets/icons/profile-dark.png";
+import Bell from "@/assets/icons/bell.png";
+import Search from "@/assets/icons/search.png";
+import Heart from "@/assets/icons/heart.png";
+import Star from "@/assets/icons/star.png";
 
 export {
   EyeOff,
@@ -22,4 +26,8 @@ export {
   MessageDark,
   Profile,
   ProfileDark,
+  Bell,
+  Search,
+  Heart,
+  Star,
 };
