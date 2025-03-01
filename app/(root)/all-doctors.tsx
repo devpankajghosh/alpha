@@ -1,10 +1,13 @@
 import { Pressable, ScrollView, View, Text, Image } from "react-native";
 import { router } from "expo-router";
+import { useForm } from "react-hook-form";
 
 import Card from "@/components/Card";
-import { Back } from "@/constants/icons";
+import { Back, Search } from "@/constants/icons";
+import { Input } from "@/components";
 
 const AllDoctors = () => {
+  const { control } = useForm();
   const DATA = [
     {
       _id: "1",
@@ -79,10 +82,10 @@ const AllDoctors = () => {
   ];
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-white">
       <View className="p-3 px-5 flex-row items-center bg-white">
         <Pressable onPress={() => router.back()}>
-          <Image source={Back} className="w-6 h-6" />
+          <Image source={Back} className="w-8 h-8" />
         </Pressable>
 
         <Text className="text-center flex-1 text-primary-300 font-inter-semibold text-2xl">
@@ -90,7 +93,15 @@ const AllDoctors = () => {
         </Text>
       </View>
 
-      <ScrollView className="p-5 flex-1 bg-white">
+      <Input
+        name="search"
+        control={control}
+        placeholder="Search a Doctor"
+        icon={<Image source={Search} className="w-6 h-6 me-2 opacity-50" />}
+        containerClassName="p-5"
+      />
+
+      <ScrollView className="p-5 flex-1">
         {DATA.map((item) => {
           return <Card key={item._id} data={item} />;
         })}

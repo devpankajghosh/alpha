@@ -2,6 +2,7 @@ import { View, Text, Image, Pressable } from "react-native";
 
 import { Heart, Star } from "@/constants/icons";
 import { Doctor1 } from "@/constants/images";
+import { router } from "expo-router";
 
 const Card = ({ data }) => {
   return (
@@ -22,9 +23,15 @@ const Card = ({ data }) => {
         <Text className="font-inter text-gray-500 mb-2">{data.details}</Text>
 
         <View className="flex-row items-end gap-5 justify-between">
-          <Pressable className="bg-primary-300 rounded-2xl p-1 px-6">
-            <Text className="font-inter text-white text-lg">Book</Text>
-          </Pressable>
+          <View className="overflow-hidden rounded-2xl">
+            <Pressable
+              onPress={() => router.push(`/partners/${data._id}`)}
+              android_ripple={{ color: "#0000005a" }}
+              className="bg-primary-300 p-1 px-6"
+            >
+              <Text className="font-inter text-white text-lg">Book</Text>
+            </Pressable>
+          </View>
 
           <View className="flex-row gap-2 items-center">
             <Image source={Star} className="w-5 h-5" />
