@@ -1,8 +1,8 @@
 import { View, Text, Image, Pressable } from "react-native";
+import { router } from "expo-router";
 
 import { Heart, Star } from "@/constants/icons";
 import { Doctor1 } from "@/constants/images";
-import { router } from "expo-router";
 
 const Card = ({ data }) => {
   return (
