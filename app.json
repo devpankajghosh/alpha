@@ -5,7 +5,6 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-
     "scheme": "athlera",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -16,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#0b8fac"
-      }
+      },
+      "package": "com.pankajghosh.athlera"
     },
     "web": {
       "bundler": "metro",
@@ -59,6 +59,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "68b903ad-c6c6-4b49-9ca3-ab3385733d49"
+      }
     }
   }
 }
