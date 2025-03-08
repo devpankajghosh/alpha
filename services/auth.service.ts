@@ -32,3 +32,9 @@ export async function login(data: SignInFormData) {
   const response = await api.post("/auth/login", data);
   return response.data;
 }
+
+// Current user
+export async function getCurrentUser() {
+  const response = await api.get("/user/current");
+  return response.data;
+}

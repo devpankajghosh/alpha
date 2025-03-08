@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import { useForm } from "react-hook-form";
 import { router } from "expo-router";
@@ -6,6 +7,7 @@ import { Bell, Search } from "@/constants/icons";
 import { Avatar } from "@/constants/images";
 import { Carousel, Input } from "@/components";
 import Card from "@/components/Card";
+import { getCurrentUser } from "@/services/auth.service";
 
 const Home = () => {
   const { control } = useForm();
@@ -17,6 +19,14 @@ const Home = () => {
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt nihil eos voluptate adipisci tempora quod!",
     rating: 5.0,
   };
+
+  useEffect(() => {
+    getCurrentUser()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => console.log(e.response.data));
+  }, []);
 
   return (
     <View className="flex-1 bg-white">

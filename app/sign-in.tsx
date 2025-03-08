@@ -3,6 +3,7 @@ import { ScrollView, Text, Pressable, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm } from "react-hook-form";
 import { router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 
 import { Input } from "@/components";
 import { SignInFormData } from "@/interfaces";
@@ -13,6 +14,10 @@ const SignIn = () => {
   const { control, handleSubmit } = useForm<SignInFormData>();
   const [loading, setLoading] = useState(false);
 
+  const save = async (key, value) => {
+    await SecureStore.setItemAsync(key, value);
+  };
+
   // Sign in handler
   const handleSignIn = async (data: SignInFormData) => {
     setLoading(true);
@@ -20,13 +25,13 @@ const SignIn = () => {
     try {
       const res = await login(data);
 
-      if (res) {
-        console.log(res);
-        //router.replace("/(root)/(tabs)"); // Homepage
+      if (!res?.success) {
+        console.log(res?.message);
         return;
       }
 
-      console.log(res);
+      save("token", res?.data?.token);
+      router.replace("/(root)/(tabs)");
     } catch (error) {
       console.log(error);
     } finally {

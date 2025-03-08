@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Alpha",
-    "slug": "alpha",
+    "name": "Athlera",
+    "slug": "athlera",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
 
-    "scheme": "alpha",
+    "scheme": "athlera",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -14,8 +14,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#0b8fac"
       }
     },
     "web": {
@@ -28,10 +28,13 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/icon.png",
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "imageSizeMode": "cover"
+          "backgroundColor": "#0b8fac",
+          "image": "./assets/images/splash-icon-light.png",
+          "dark": {
+            "image": "./assets/images/splash-icon-light.png",
+            "backgroundColor": "#0b8fac"
+          },
+          "imageWidth": 200
         }
       ],
       [
