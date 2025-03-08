@@ -3,15 +3,20 @@ import { ScrollView, Text, Pressable, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm } from "react-hook-form";
 import { router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 
 import { Input } from "@/components";
 import { Loader } from "@/constants/icons";
-import { register } from "@/services/auth.service";
+import { login, register } from "@/services/auth.service";
 import { SignUpFormData } from "@/interfaces";
 
 const SignUp = () => {
   const { control, handleSubmit } = useForm<SignUpFormData>();
   const [loading, setLoading] = useState(false);
+
+  const save = async (key, value) => {
+    await SecureStore.setItemAsync(key, value);
+  };
 
   // Sign up handler
   const handleSignUp = async (data: SignUpFormData) => {
@@ -20,14 +25,25 @@ const SignUp = () => {
     try {
       const res = await register(data);
 
-      if (res) {
-        router.replace("/sign-in");
+      if (!res?.success) {
+        console.log(res?.message);
         return;
       }
 
-      console.log(res);
+      const session = await login({
+        email_or_phone: data.identifier,
+        password: data.password,
+      });
+
+      if (!session?.success) {
+        console.log(session?.message);
+        return;
+      }
+
+      save("token", session?.data?.token);
+      router.replace("/(root)/(tabs)");
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data);
     } finally {
       setLoading(false);
     }
