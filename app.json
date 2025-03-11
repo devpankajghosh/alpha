@@ -14,8 +14,8 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/foreground.png",
-        "monochromeImage": "./assets/images/monochrome.svg",
-        "backgroundImage": "./assets/images/background.svg",
+        "monochromeImage": "./assets/images/monochromatic.png",
+        "backgroundImage": "./assets/images/background.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.pankajghosh.phynder"
@@ -63,7 +63,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "55d41c53-ea30-4eca-a0c7-cce8024a35c3"
+        "projectId": "0ceb654a-6737-41e5-968e-ed658d4d65f1"
       }
     }
   }
