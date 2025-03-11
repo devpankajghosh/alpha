@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Athlera",
-    "slug": "athlera",
+    "name": "Phynder",
+    "slug": "phynder",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "athlera",
+    "scheme": "phynder",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -13,10 +13,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#0b8fac"
+        "foregroundImage": "./assets/images/foreground.png",
+        "monochromeImage": "./assets/images/monochrome.svg",
+        "backgroundImage": "./assets/images/background.svg",
+        "backgroundColor": "#ffffff"
       },
-      "package": "com.pankajghosh.athlera"
+      "package": "com.pankajghosh.phynder"
     },
     "web": {
       "bundler": "metro",
@@ -28,13 +30,9 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0b8fac",
-          "image": "./assets/images/splash-icon-light.png",
-          "dark": {
-            "image": "./assets/images/splash-icon-light.png",
-            "backgroundColor": "#0b8fac"
-          },
-          "imageWidth": 200
+          "backgroundColor": "#ffffff",
+          "image": "./assets/images/splash-icon.png",
+          "resizeMode": "contain"
         }
       ],
       [
