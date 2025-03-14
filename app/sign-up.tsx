@@ -3,14 +3,17 @@ import { ScrollView, Text, Pressable, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm } from "react-hook-form";
 import { router } from "expo-router";
+import { useDispatch } from "react-redux";
 import * as SecureStore from "expo-secure-store";
 
 import { Input } from "@/components";
 import { Loader } from "@/constants/icons";
 import { login, register } from "@/services/auth.service";
 import { SignUpFormData } from "@/interfaces";
+import { login as storeLogin } from "@/store/slices/auth.slice";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const { control, handleSubmit } = useForm<SignUpFormData>();
   const [loading, setLoading] = useState(false);
 
@@ -41,6 +44,7 @@ const SignUp = () => {
       }
 
       save("token", session?.data?.token);
+      dispatch(storeLogin(session?.data));
       router.replace("/(root)/(tabs)");
     } catch (error) {
       console.log(error?.response?.data);

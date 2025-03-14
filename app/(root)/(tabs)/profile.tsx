@@ -1,3 +1,4 @@
+import { LogoutBtn } from "@/components";
 import { Link } from "expo-router";
 import { View, Text } from "react-native";
 
@@ -16,6 +17,7 @@ export default function Profile() {
       <Link href="/messages">Messages</Link>
       <Link href="/profile">Profile</Link>
       <Link href="/partners/1">Partner</Link>
+      <LogoutBtn />
     </View>
   );
 }

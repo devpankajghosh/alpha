@@ -38,3 +38,9 @@ export async function getCurrentUser() {
   const response = await api.get("/user/current");
   return response.data;
 }
+
+// Logout
+export async function logout() {
+  const response = await api.get("/auth/logout");
+  return response.data;
+}

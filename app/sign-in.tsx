@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm } from "react-hook-form";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
+import { useDispatch } from "react-redux";
 
 import { Input } from "@/components";
 import { SignInFormData } from "@/interfaces";
@@ -11,6 +12,7 @@ import { login } from "@/services/auth.service";
 import { Loader } from "@/constants/icons";
 
 const SignIn = () => {
+  const dispatch = useDispatch();
   const { control, handleSubmit } = useForm<SignInFormData>();
   const [loading, setLoading] = useState(false);
 
