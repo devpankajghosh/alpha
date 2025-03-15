@@ -14,6 +14,10 @@ import Search from "@/assets/icons/search.png";
 import Heart from "@/assets/icons/heart.png";
 import Star from "@/assets/icons/star.png";
 import Back from "@/assets/icons/back.png";
+import MessageCircle from "@/assets/icons/message-circle.png";
+import Phone from "@/assets/icons/phone.png";
+import Video from "@/assets/icons/video.png";
+import Tic from "@/assets/icons/tic.png";
 
 export {
   EyeOff,
@@ -32,4 +36,8 @@ export {
   Heart,
   Star,
   Back,
+  MessageCircle,
+  Phone,
+  Video,
+  Tic,
 };

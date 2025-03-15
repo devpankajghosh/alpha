@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import "./global.css";
 import store from "@/store/store";
 import { getCurrentUser } from "@/services/auth.service";
+import { login as storeLogin } from "@/store/slices/auth.slice";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -29,10 +30,11 @@ export default function RootLayout() {
           return;
         }
 
+        store.dispatch(storeLogin(res?.data));
         router.replace("/(root)/(tabs)");
       })
-      .catch((e) => {
-        console.log(e.response.data);
+      .catch((error) => {
+        console.log(error.response.data);
         router.replace("/sign-in");
       })
       .finally(() => {
