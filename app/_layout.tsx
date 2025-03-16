@@ -9,7 +9,10 @@ import { Provider } from "react-redux";
 import "./global.css";
 import store from "@/store/store";
 import { getCurrentUser } from "@/services/auth.service";
-import { login as storeLogin } from "@/store/slices/auth.slice";
+import {
+  logout as storeLogout,
+  login as storeLogin,
+} from "@/store/slices/auth.slice";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,7 +28,7 @@ export default function RootLayout() {
   useEffect(() => {
     getCurrentUser()
       .then((res) => {
-        if (!res.success) {
+        if (!res) {
           router.replace("/sign-in");
           return;
         }
@@ -35,22 +38,14 @@ export default function RootLayout() {
       })
       .catch((error) => {
         console.log(error.response.data);
+        store.dispatch(storeLogout());
         router.replace("/sign-in");
       })
       .finally(() => {
+        if (!fontsLoaded) return null;
         SplashScreen.hideAsync();
       });
-  }, []);
-
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
-    }
   }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   return (
     <SafeAreaView className="flex-1">
